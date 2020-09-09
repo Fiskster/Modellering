@@ -2,10 +2,12 @@ using System;
 
 public class Gun 
 {
-   public float x;
+   public float damage;
 
-    public float y;
+    public float range;
 
-    public float z;
+    public float accuracy;
+
+    public string equipped;
 
 }
