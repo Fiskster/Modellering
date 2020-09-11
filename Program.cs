@@ -9,9 +9,9 @@ namespace Modellering
         {
             int [] enemyHP = {30,44, 78, 95};
              Gun AR = new Gun();
-            Gun pistol = new Gun();
-             Gun firearm = new Gun();
+              Gun pistol = new Gun();
 
+             Gun firearm = new Gun();
             
            
             firearm.equipped = "no gun";
@@ -26,15 +26,16 @@ namespace Modellering
             if(answer == "shop")
             {
               System.Console.WriteLine("hello you want pistol or AR");
-                 Console.ReadLine();
-              if (answer == "pistol")
+             string answer2 = Console.ReadLine(); 
+
+              if (answer2 == "pistol")
               {
-                handGun(firearm, pistol);
+                handGun(pistol,firearm);
                 Console.WriteLine("you currectly have "+ firearm.equipped + " equipped." );
                 Console.ReadLine();
-                // rad 32 är för debug
+                
               }
-                else if (answer == "AR")
+                else if (answer2 == "AR")
                 {
                 
                 }
@@ -42,19 +43,30 @@ namespace Modellering
                    System.Console.WriteLine("vad gör du idiot");
                 }
                
-                Console.ReadLine();
+                
             }
-           
-       
+           Console.Clear();
+          System.Console.WriteLine("okay cool now you are shooting enemy");
+          System.Console.WriteLine("Press enter when you are ready.");
+          Console.ReadLine();
+          Console.Clear();
+         // shoot(firearm);
+          Console.WriteLine(shoot(firearm));
+          Console.ReadLine();
+
         }
        static void handGun(Gun pistol, Gun firearm)
             {
                 firearm.equipped = "pistol";
-                  firearm.damage = pistol.damage;
-                  firearm.accuracy = pistol.accuracy;
-                  firearm.range = pistol.range;
+                  firearm.damage = pistol.pistoldmg;
+                  firearm.accuracy = pistol.pistolAccuracy;
+                  firearm.range = pistol.pistolRange;
             }   
-    
+      static float shoot( Gun firearm)
+      {
+       float dmg = firearm.range * firearm.accuracy / firearm.damage;
+       return dmg;
+      }
     
     }
     
