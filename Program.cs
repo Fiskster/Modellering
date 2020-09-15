@@ -7,14 +7,18 @@ namespace Modellering
         
         static void Main(string[] args)
         {
-            int [] enemyHP = {30,44, 78, 95};
+           
              Gun AR = new Gun();
               Gun pistol = new Gun();
+              Enemy mob = new Enemy();
 
              Gun firearm = new Gun();
-            
-           
             firearm.equipped = "no gun";
+
+            Random generator = new Random();
+            mob.hp = generator.Next(35,120);
+            mob.armor = generator.Next(10,25);
+            mob.dodge = generator.Next(1,10);
             
            
            System.Console.WriteLine("gun range time.");
@@ -37,7 +41,9 @@ namespace Modellering
               }
                 else if (answer2 == "AR")
                 {
-                
+                 rifle(AR,firearm);
+                Console.WriteLine("you currectly have "+ firearm.equipped + " equipped." );
+                Console.ReadLine();
                 }
                else{
                    System.Console.WriteLine("vad gör du idiot");
@@ -50,9 +56,13 @@ namespace Modellering
           System.Console.WriteLine("Press enter when you are ready.");
           Console.ReadLine();
           Console.Clear();
-         // shoot(firearm);
-          Console.WriteLine(shoot(firearm));
+                   
+          System.Console.WriteLine("An enemy appears, it has " + mob.hp + " HP");
+          
+          Console.WriteLine("You shoot the enemy for " + shoot(firearm, mob) + " Damage.");
+          System.Console.WriteLine("The enemy has " + mob.hp + " HP left.");
           Console.ReadLine();
+          
 
         }
        static void handGun(Gun pistol, Gun firearm)
@@ -62,10 +72,28 @@ namespace Modellering
                   firearm.accuracy = pistol.pistolAccuracy;
                   firearm.range = pistol.pistolRange;
             }   
-      static float shoot( Gun firearm)
-      {
-       float dmg = firearm.range * firearm.accuracy / firearm.damage;
+            static void rifle(Gun AR, Gun firearm)
+            {
+                firearm.equipped = "AR";
+                  firearm.damage = AR.arDMG;
+                  firearm.accuracy = AR.arAccuracy;
+                  firearm.range = AR.arRange;
+            }   
+      static float shoot( Gun firearm, Enemy mob)
+      {       
+       float gunDmg = firearm.range * firearm.accuracy / firearm.damage;
+       float enemyHP = mob.hp + mob.armor;
+       
+       if (mob.dodge <= 3)
+       {
+         gunDmg= 0;
+       } 
+       float dmg = enemyHP - gunDmg;
+        mob.hp = enemyHP - dmg;
        return dmg;
+      
+       
+      
       }
     
     }
